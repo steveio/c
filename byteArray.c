@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
-
+#include <string.h>
 
 typedef struct data_t
 {
@@ -9,6 +9,7 @@ typedef struct data_t
   uint8_t type;
   uint16_t v1;
   float v2;
+  char details[32];
 };
 
 typedef union packet_t {
@@ -37,6 +38,7 @@ int main()
   sendMsg.data.type = 255;
   sendMsg.data.v1 = 3131;
   sendMsg.data.v2 = 1234.567;
+  strcpy( sendMsg.data.details, "Here is some char data" );
 
   printByteArray(sendMsg);
 
@@ -59,6 +61,8 @@ void printByteArray(union packet_t msg)
   printf("%d",sendMsg.data.v1);
   printf("\t");
   printf("%f",sendMsg.data.v2);
+  printf("\t");
+  printf("%s",sendMsg.data.details);
   printf("\n");
 }
 
